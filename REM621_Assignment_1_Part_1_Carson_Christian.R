@@ -2,17 +2,17 @@
 #REM 621
 #Assignment 1
 #09/22/2023
-##############################################################################################################
-#You’ve been asked to evaluate a proposal for a new dam to be 
-#built along a remote river that is currently used for subsistence fisheries. 
-#Construction is expected to cost $10M in the first year (pretend this is a fast build), 
-#with additional operating costs of $100K/year over the following 19 years. 
-#It is expected that this dam will generate electricity worth $1M/year starting in year 3,
-#increasing by 2% per year from then on due to higher expected demand. 
-#Proponents have also indicated an additional $50K/year from local fishing tourism starting 
-#in year 5 when the new lake is stable and fully stocked with fish. 
-#The planning and public consultation process is in very early stages, 
-#so there is a lot of uncertainty about what discount rate and 
+#############################################################################
+#You’ve been asked to evaluate a proposal for a new dam to be
+#built along a remote river that is currently used for subsistence fisheries.
+#Construction is expected to cost $10M in the first year (pretend this is a fast build),
+#with additional operating costs of $100K/year over the following 19 years.
+#It is expected that this dam will generate electricity worth
+#$1M/year starting in year 3 increasing by 2% per year from then on due to higher expected demand
+#Proponents have also indicated an additional $50K/year from local fishing
+#tourism starting in year 5 when the new lake is stable and fully stocked with fish.
+#The planning and public consultation process is in very early stages,
+#so there is a lot of uncertainty about what discount rate and
 #decision rule to use for the project. The main questions are:
 
 #####Part 1 ######
@@ -45,8 +45,8 @@ totcost <- 10000000
 #cost every year following 1
 annualcost <- rep(100000, length(yrs))
 
-#electrical increasing 2% every year after year 3
-yrrev <- rep(1000000, length(yrs))
+#electrical increasing 2% every year after year 3, 0 for first three years
+yrrev <- c(rep(0, 2), 1000000, rep(1000000, length(yrs) - 3))
 yrrev[4:length(yrs)] <- yrrev[4:length(yrs)] * 1.02^(1:(length(yrs)-3))
 
 #fishing after year 5
