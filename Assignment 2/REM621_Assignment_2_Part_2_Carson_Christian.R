@@ -32,11 +32,11 @@ subsidized_profit <- revenue - subsidized_cost
 
 ########Standard Fishery at MSY#####
 #Standard MSY
-MSY <- K / 2
+B_MSY <- K / 2
 #Biomass at MSY 
-B_MSY <- r * K / 4 
+Y_MSY <- (r * K) / 4 
 #Effort at MSY
-E_MSY <- r / (2 * Q) 
+E_MSY <- r / (2 * Q)
 
 #Standard MEY
 #Effort at standard MEY
@@ -75,19 +75,23 @@ Y_OA_Subsidized <- Q * E_OA_Subsidized * (sc / (p * Q))
 #Create a MATA table
 MATA <- data.frame(
   Category = c('Effort', 'Biomass', 'Yield'), 
-  MSY = c(E_MSY, B_MSY, MSY),
+  MSY = c(E_MSY, B_MSY, Y_MSY),
   OA = c(E_OA, B_OA, Y_OA),
   OA_Subsidized = c(E_OA_Subsidized, B_OA_Subsidized, Y_OA_Subsidized),
   MEY = c(E_MEY, B_MEY, MEY),
   MEY_Subsidized = c(E_MEY_Subsidized, B_MEY_Subsidized, MEY_Subsidized)
 )
+#transpose but keep names
+MATA <- t(MATA)
+rownames(MATA) <- c('Category', 'MSY', 'OA', 'OA_Subsidized', 'MEY', 'MEY_Subsidized')
+colnames(MATA) <- c('Effort', 'Biomass', 'Yield')
+#remove first row
+MATA <- MATA[-1,]
 
-#table
-library(tableHTML)
-tableHTML(MATA, rownames = FALSE)
+tableHTML(MATA)
 
 #setup
-df <- data.frame(effort, biomass, yield, revenue, cost, profit, subsidized_profit, MSY, E_MEY, MEY, E_MEY_Subsidized, MEY_Subsidized)
+df <- data.frame(effort, biomass, yield, revenue, cost, profit, subsidized_profit, MSY, B_MSY, E_MSY, MEY, B_MEY, E_MEY, B_OA, E_OA, Y_OA, B_OA_Subsidized, E_OA_Subsidized, Y_OA_Subsidized, MEY_Subsidized, B_MEY_Subsidized, E_MEY_Subsidized)
 
 #table
 library(tableHTML)
