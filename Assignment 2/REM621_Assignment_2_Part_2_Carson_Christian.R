@@ -109,6 +109,7 @@ df <- data.frame(
   revenue = pmax(revenue, 0),
   effort = effort, 
   cost = cost, 
+  subsidized_cost = subsidized_cost,
   profit = pmax(profit, 0),
   subsidized_profit = pmax(subsidized_profit, 0),
   profit_MSY = Profit_MSY,
@@ -127,6 +128,7 @@ source("https://raw.githubusercontent.com/koundy/ggplot_theme_Publication/master
 p <- ggplot(df, aes(x = effort)) +
   geom_line(aes(y = revenue, color = "Revenue"), size = 1) +
   geom_line(aes(y = cost, color = "Cost"), size = 1) +
+  geom_line(aes(y = subsidized_cost, color = "Subsidized Cost"), size = 1, linetype = "dashed") +
   geom_line(aes(y = profit, color = "Profit"), size = 1) +
   geom_line(aes(y = subsidized_profit, color = "Subsidized Profit"), size = 1, linetype = "dashed") +
   
@@ -144,7 +146,7 @@ p <- ggplot(df, aes(x = effort)) +
   geom_point(aes(x = effort_OA_Subsidized, y = profit_OA_Subsidized), color = "darkgreen", size = 4, shape = 17) +
   geom_text(aes(x = effort_OA_Subsidized, y = profit_OA_Subsidized, label = "OA Sub."), color = "darkgreen", nudge_y = -.5 ,nudge_x = 3, size = 4) +
   
-  scale_color_manual(values = c("Revenue" = "blue", "Cost" = "red", "Profit" = "forestgreen", "Subsidized Profit" = "darkgreen")) +
+  scale_color_manual(values = c("Revenue" = "blue", "Cost" = "red","Subsidized Cost" = "red", "Profit" = "forestgreen", "Subsidized Profit" = "darkgreen")) +
   
   labs(x = "Effort", y = "$", color = "Line Type") + 
    theme_Publication() + 
